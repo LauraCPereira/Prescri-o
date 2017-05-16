@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block body_content %}
+<div class="formulario">
+
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <div class="panel panel-primary">
+          <center>
+            <ul class="list-group">
+              <a class="panel-title descricaoTitulo">Prescricao De Enfermagem</a>
+            </ul>
+          </center>
+          <div class="panel-body">
+
+            {% csrf_token %}
+            <div class="row">
+              <div class="form-group col-md-6">
+                <label>Nome</label>
+                <input type="text" class="form-control nome" name="nome" value="{{object.paciente.nome}}" >
+
+              </div>
+              <div class="form-group col-md-3"><label>Leito</label>
+                <select class="form-control" name="leito" value="2">
+                  <option value="{{object.leito.id}}">  {{ object.leito.codigoleito}}</option>
+                </select>
+              </div><div class="form-group col-md-3"><label>Especialidade</label>
+                <select class="form-control col-md-3" name="especialidade">
+                  <option value="{{object.especialidade.id}}">  {{object.especialidade.nome}}</option>
+                </select>
+              </div>
+            </div>
+          </table>
+        </div>
+      </div>
+      <table class="table table-condensed">
+        <thead>
+          <tr>
+            <th >Prescricao de Enfermagem</th>
+            <th > Horário</th>
+            <th > Diagnostico de Enfermagem</th>
+          </tr>
+        </thead>
+        <tbody id="input_prescricao">
+          <tr>
+            <td>
+            <select class="form-control" name= "prescricao" value="{{object.prescricao.id}}">
+                <option value="{{object.prescricao.id}}">  {{object.prescricao.descricao}}</option>
+              </select>
+            </td>
+            <td>
+              <div class="form-group">
+                <input type="text" class="form-control" name="horario" value="{{object.horario}}" >
+              </div>
+            </td>
+            <td>
+              <select class="form-control" name= "diagnostico">
+                <option value="{{object.diagnostico.id}}">  {{object.diagnostico.descricao}}</option>
+              </select>
+            </td>
+            <td> <button id="add_button"class="btn btn-info format">
+              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            </button> </td>
+          </tr>
+          </tbody>
+          </table>
+            <div class="form-group">
+        </div>
+      </div>
+    </div>
+      <a href="/tarefas/listar/" class="btn btn-info format">
+        Voltar
+      </a>
+    </div>
+ </div>
+</div>
+
+
+{% endblock %}

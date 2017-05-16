@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block body_content %}
+<nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container">
+    <div class="navbar-header page-scroll">
+      <a class="navbar-brand" href="#page-top">Olá {{ user.get_full_name }}</a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="hidden">
+          <a href="#page-top"></a>
+        </li>
+        <li class="page-scroll">
+          <a href="/sair"> Sair </a>
+        </li>
+      </li>
+      <li class="page-scroll">
+        <a href="/tarefas/criar" class="btn-defaul submit"> Criar Formulario </a>
+      </li>
+
+    </ul>
+  </div>
+
+</div>
+
+</nav>
+</body>
+
+
+<div class="container-fluid lista">
+  <table class="table table-hover">
+    <thead >
+      <tr>
+        <th>Paciente</th>
+        <th>Leito</th>
+        <th>Especialidade</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+
+      {% for prescricaodeenfermagem in object_list %}
+      <tr>
+        <td><a href="/tarefas/paciente/{{prescricaodeenfermagem.id}}">{{ prescricaodeenfermagem.paciente.nome }}</a></td>
+        <td>{{ prescricaodeenfermagem.leito.codigoleito }}</td>
+        <td>{{ prescricaodeenfermagem.especialidade.nome }}</td>
+        <td>
+          <a  data-toggle="modal" data-target="#{{prescricaodeenfermagem.id}}_del" class="btn btn-danger" aria-label="Left Align">
+            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+          </a>
+        </td>
+
+      </tr>
+      <div class="modal fade" id="{{prescricaodeenfermagem.id}}_del" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <form action="/tarefas/deletar/{{prescricaodeenfermagem.id}}" method="post">{% csrf_token %}
+
+              <div class="modal-body">
+                <p>Deseja realmente deletar Prescrição?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="submit" value="Confirm" class="btn btn-danger">Deletar</button>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+
+      {% empty %}
+      <tr>No articles yet.</tr>
+      {% endfor %}
+      <tbody>
+
+      </table>
+    </div>
+
+
+
+    {% endblock %}
